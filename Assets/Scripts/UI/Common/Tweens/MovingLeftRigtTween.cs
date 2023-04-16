@@ -8,6 +8,6 @@ public class MovingLeftRigtTween : MonoBehaviour
 
     private void Start()
     {
-        transform.DOLocalMove(endValue, duration, true).SetEase(Ease.Flash).SetLoops(-1, LoopType.Yoyo);
+        transform.DOLocalMove(endValue, duration, false).SetEase(Ease.Flash).SetLoops(-1, LoopType.Yoyo);
     }
 }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AddresableGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: AddresableGroup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ac4e46daec22caf46ad0fda54e66c162
+  m_SerializeEntries:
+  - m_GUID: fb419d13bbc3a8748a2d12979f9ef589
+    m_Address: Assets/3D/Materials/Red_1.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2986dbb271aa5064caac2c0b516126e8
+    m_Address: Assets/Prefabs/3D/Cars/Car_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6796d2c970652c747a91a7afdc90d6b9
+    m_Address: Assets/Prefabs/3D/RoomPrefab_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f77eb2c2ff6a06142ab5c0c87997bc64, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8914b239d74fe9c41953fdeecc42def9, type: 2}
+    - {fileID: 11400000, guid: 040b746b86b894d42a779aa65f57131c, type: 2}

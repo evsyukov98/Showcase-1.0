@@ -14,6 +14,6 @@ public class StartScene : MonoBehaviour
 
     private void Awake()
     {
-        _loadingManager.Load(ConstantStatics.ConstantScenes.MAIN_MENU_SCENE);
+        _loadingManager.Load(ConstantStatics.ConstantScenes.ADDRESSABLE_SCENE);
     }
 }
