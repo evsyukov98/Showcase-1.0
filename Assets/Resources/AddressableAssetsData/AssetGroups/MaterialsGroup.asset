@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MaterialsGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: MaterialsGroup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e794363422afacd43a967e4f03b20384
+  m_SerializeEntries:
+  - m_GUID: db96e04f47f6c2a44bc6bb90f93602ec
+    m_Address: Stylize Water Diffuse
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f77eb2c2ff6a06142ab5c0c87997bc64, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 95aa0f99a6a0e3e4cacf4e13210d2d67, type: 2}
+    - {fileID: 11400000, guid: f622d709962cc4b438e16d23f89da800, type: 2}

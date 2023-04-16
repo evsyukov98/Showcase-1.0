@@ -17,16 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ac4e46daec22caf46ad0fda54e66c162
   m_SerializeEntries:
-  - m_GUID: fb419d13bbc3a8748a2d12979f9ef589
-    m_Address: Assets/3D/Materials/Red_1.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 2986dbb271aa5064caac2c0b516126e8
-    m_Address: Assets/Prefabs/3D/Cars/Car_1.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 6796d2c970652c747a91a7afdc90d6b9
-    m_Address: Assets/Prefabs/3D/RoomPrefab_1.prefab
+    m_Address: RoomPrefab_1
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
