@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Red_1
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6796d2c970652c747a91a7afdc90d6b9
+    m_Address: RoomPrefab_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f77eb2c2ff6a06142ab5c0c87997bc64, type: 2}
   m_SchemaSet:

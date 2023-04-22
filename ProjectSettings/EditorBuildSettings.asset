@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AddressableShowcase.unity
+    path: Assets/Scenes/Showcase_Addressable.unity
     guid: 4e80b09886879c0478e4593bfe4eed3b
   - enabled: 1
     path: Assets/Scenes/Common/StartScene.unity
