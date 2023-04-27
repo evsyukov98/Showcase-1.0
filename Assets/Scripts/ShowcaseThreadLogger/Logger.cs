@@ -26,7 +26,15 @@ namespace ShowcaseThreadLogger
 
         private void OnLogMessageReceived(string message, string stacktrace, LogType type)
         {
-            _fileWriter.Write(new LogMessage(type, message));
+            if (type == LogType.Exception)
+            {
+                _fileWriter.Write(new LogMessage(type, message));
+                _fileWriter.Write(new LogMessage(type, stacktrace));
+            }
+            else
+            {
+                _fileWriter.Write(new LogMessage(type, message));
+            }
         }
 
         private void Update()
@@ -37,6 +45,11 @@ namespace ShowcaseThreadLogger
                 UnityEditor.EditorUtility.RevealInFinder(_workDirectory);
             }
             #endif
+        }
+
+        private void OnDestroy()
+        {
+            _fileWriter.Dispose();
         }
     }
 

@@ -2,13 +2,16 @@ using System;
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Threading;
+using Unity.VisualScripting;
+using ThreadPriority = System.Threading.ThreadPriority;
 
 namespace ShowcaseThreadLogger
 {
-    public class FileWriter
+    public class FileWriter : IDisposable
     {
         private const string DateFormat = "yyyy-MM-dd";
         private const string LogTimeFormat = "{0} [{1}]: {2}\r";
+        private const int MAX_MESSAGE_LENGTH = 3500;
 
         private string _folder;
         private string _filePath;
@@ -42,8 +45,25 @@ namespace ShowcaseThreadLogger
 
         public void Write(LogMessage message)
         {
-            _messages.Enqueue(message);
-            _mre.Set();                         // игнор WaitOne (т.е. разблокировка потока)
+            try
+            {
+                if (message.Message.Length > MAX_MESSAGE_LENGTH)
+                {
+                    string preview = message.Message.Substring(0, MAX_MESSAGE_LENGTH);
+                    _messages.Enqueue(new LogMessage(message.Type, 
+                        $"Message is too long {message.Message.Length}. Preview {preview}...")
+                    {
+                        Time = message.Time
+                    });
+                }
+                else
+                {
+                    _messages.Enqueue(message);
+                }
+                _mre.Set();                         // игнор WaitOne (т.е. разблокировка потока)
+            }
+            catch (Exception e)
+            { }
         }
 
         private void StoreMessages()
@@ -82,6 +102,13 @@ namespace ShowcaseThreadLogger
                 _mre.Reset();                       
                 _mre.WaitOne();   // если был вызван Reset() то остановить работу пока не будет вызван Set      
             }
+        }
+
+        public void Dispose()
+        {
+            _isThreadAlive = false;         // прервать цикл (Abort не гарантирует полной остановки работы потока в момент вызова)
+            _workingThread?.Abort();        // остановить поток
+            GC.SuppressFinalize(this);   // уведомить GC что уже все почищено и не нужно запускать сборщик мусора
         }
     }
 }

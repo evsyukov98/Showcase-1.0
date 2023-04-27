@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,12 +31,25 @@ namespace ShowcaseThreadLogger
                 case 0: Debug.Log("MAIN THREAD: Log"); break;
                 case 1: Debug.LogWarning("MAIN THREAD: Warning"); break;
                 case 2: Debug.LogError("MAIN THREAD: Error"); break;
-                case 3:
+                case 3: Debug.Log(GetLongMessage(4000)); break;
+                case 4:
                     GameObject nullObject = null;
                     nullObject.SetActive(false);
                     break;
             }
 
+        }
+
+        private string GetLongMessage(int count)
+        {
+            var str = new StringBuilder();
+
+            for (int i = 0; i < count; i++)
+            {
+                str.Append("A");
+            }
+
+            return str.ToString();
         }
     }
 }
