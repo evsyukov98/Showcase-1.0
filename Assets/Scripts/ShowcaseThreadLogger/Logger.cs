@@ -19,7 +19,9 @@ namespace ShowcaseThreadLogger
             }
 
             _fileWriter = new FileWriter(_workDirectory);
-            Application.logMessageReceived += OnLogMessageReceived;
+            // При вызове лога из другого потока OnLogMessageReceived будет запущен та томже потоке.
+            // А если ошибка возникла в основном потоке то будет работать как стандартный logMessageReceived
+            Application.logMessageReceivedThreaded += OnLogMessageReceived; 
         }
 
         private void OnLogMessageReceived(string message, string stacktrace, LogType type)
