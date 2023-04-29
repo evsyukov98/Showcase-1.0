@@ -1,7 +1,7 @@
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
-using Directory = UnityEngine.Windows.Directory;
 
 namespace ShowcaseThreadLogger
 {
@@ -19,7 +19,9 @@ namespace ShowcaseThreadLogger
 
         private void OnOpenFolder()
         {
+#if UNITY_EDITOR
             UnityEditor.EditorUtility.RevealInFinder(_workDirectory);
+#endif
         }
 
         private void Awake()

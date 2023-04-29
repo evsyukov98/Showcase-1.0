@@ -21,12 +21,12 @@ MonoBehaviour:
     m_Address: Car_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: fb419d13bbc3a8748a2d12979f9ef589
-    m_Address: Red_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 6796d2c970652c747a91a7afdc90d6b9
     m_Address: RoomPrefab_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: db96e04f47f6c2a44bc6bb90f93602ec
+    m_Address: Stylize Water Diffuse
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
