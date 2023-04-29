@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/Show\u0441ase_ThreadLogger.unity"
     guid: af9fd69dbe41a0a4184ed71cadd62290
+  - enabled: 1
+    path: Assets/Scenes/Showcase_SaveSystem.unity
+    guid: 5a4b46bd3447c9248847d67da7e6ee86
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: fb4ff505be1364a418d62e3e55f83934, type: 2}

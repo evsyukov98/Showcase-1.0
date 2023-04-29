@@ -11,6 +11,6 @@ public class PulseTween : MonoBehaviour
     
     void Start()
     {
-        transform.DOScale(scale, duration).SetEase(Ease.InCirc).SetLoops(-1, LoopType.Yoyo);
+        transform.DOScale(scale, duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 }
