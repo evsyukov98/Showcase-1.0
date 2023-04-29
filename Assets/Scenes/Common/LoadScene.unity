@@ -633,30 +633,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingWindow
       objectReference: {fileID: 0}
-    - target: {fileID: 7715115522017118768, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7715115522017118768, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7715115522017118768, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8215901092788046565, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8215901092788046565, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8215901092788046565, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24dbfaf7175b55d498cbde3ab6f83ee9, type: 3}
 --- !u!224 &1543086322 stripped

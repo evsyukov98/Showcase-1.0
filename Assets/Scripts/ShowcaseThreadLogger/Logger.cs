@@ -1,14 +1,27 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Directory = UnityEngine.Windows.Directory;
 
 namespace ShowcaseThreadLogger
 {
     public class Logger : MonoBehaviour
     {
+        [SerializeField] private Button openFolder;
+        
         private string _workDirectory;
         private FileWriter _fileWriter;
-        
+
+        private void Start()
+        {
+            openFolder.onClick.AddListener(OnOpenFolder);
+        }
+
+        private void OnOpenFolder()
+        {
+            UnityEditor.EditorUtility.RevealInFinder(_workDirectory);
+        }
+
         private void Awake()
         {
             _workDirectory = $"{Application.persistentDataPath}/Logs";
@@ -35,16 +48,6 @@ namespace ShowcaseThreadLogger
             {
                 _fileWriter.Write(new LogMessage(type, message));
             }
-        }
-
-        private void Update()
-        {
-            #if UNITY_EDITOR
-            if (Input.GetKeyUp(KeyCode.L))
-            {
-                UnityEditor.EditorUtility.RevealInFinder(_workDirectory);
-            }
-            #endif
         }
 
         private void OnDestroy()
