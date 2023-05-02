@@ -62,5 +62,19 @@ namespace ShowcaseJobSystem
 
             return input;
         }
+        
+        
+        // просто обьяснение
+        private void AllocatorTempExample() 
+        {
+            NativeArray<int> tempContainer = new NativeArray<int>(100, Allocator.Temp);
+            // Allocator.Temp - это временный выделитель памяти для массивов, предназначенных для кратковременного использования.
+            // Он предназначен для ситуаций, когда данные нужны только на короткое время в основном потоке.
+            // Не рекомендуется использовать Allocator.Temp для задач, выполняемых в других потоках или долгосрочных операций,
+            // так как память, выделенная с Allocator.Temp, автоматически освобождается в конце каждого кадра.
+            // Для задач, выполняемых в других потоках или требующих сохранения данных между кадрами,
+            // используйте Allocator.TempJob или Allocator.Persistent.
+            tempContainer.Dispose();
+        }
     }
 }
