@@ -1,3 +1,4 @@
+using System;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -11,6 +12,10 @@ namespace ShowcaseJobBoids
         [SerializeField] private int numberOfEntities;
         [SerializeField] private float destinationThreshold;
         [SerializeField] private GameObject entityPrefab;
+        [SerializeField] private Vector3 areaSize;
+        [SerializeField] private float velocityLimit = 3;
+        [SerializeField] private Vector3 weights;
+        
 
         private NativeArray<Vector3> _positions;
         private NativeArray<Vector3> _velocities;
@@ -38,12 +43,20 @@ namespace ShowcaseJobBoids
         
         private void Update()
         {
+            BoundsJob boundsJob = new BoundsJob()
+            {
+                Positions = _positions,
+                Accelerations = _accelerations,
+                AreaSize = areaSize
+            };
+            
             AccelerationJob accelerationJob = new AccelerationJob()
             {
                 Positions = _positions, 
                 Velocities = _velocities,
                 Accelerations = _accelerations,
-                DestinationThreshold = destinationThreshold
+                DestinationThreshold = destinationThreshold,
+                Weights = weights
             };
             
             MoveJob moveJob = new MoveJob()
@@ -51,11 +64,19 @@ namespace ShowcaseJobBoids
                 Positions = _positions,     // Позиция у всех начальная 0
                 Velocities = _velocities,   // Случайные направления 
                 Accelerations = _accelerations,
-                DeltaTime = Time.deltaTime  // Скорость перемещения к направлению
+                DeltaTime = Time.deltaTime,  // Скорость перемещения к направлению
+                VelocityLimit = velocityLimit
             };
 
-            JobHandle accelerationHandle = accelerationJob.Schedule(numberOfEntities, 0);
-            JobHandle moveHandel = moveJob.Schedule(_transformsAccess, accelerationHandle); // выполниться после вычисления Acceleration
+            var boundsHandle = boundsJob.
+                Schedule(numberOfEntities, 128);
+            
+            var accelerationHandle = accelerationJob.
+                Schedule(numberOfEntities, 128, boundsHandle);
+            
+            var moveHandel = moveJob.
+                Schedule(_transformsAccess, accelerationHandle); // выполниться после вычисления Acceleration
+            
             moveHandel.Complete();
         }
 
@@ -66,75 +87,10 @@ namespace ShowcaseJobBoids
             _accelerations.Dispose();
             _transformsAccess.Dispose();
         }
-    }
-    
-    public struct MoveJob : IJobParallelForTransform
-    {
-        public NativeArray<Vector3> Positions;
-        public NativeArray<Vector3> Velocities;
-        public NativeArray<Vector3> Accelerations;
-        
-        public float DeltaTime;
 
-        public void Execute(int index, TransformAccess transform)
+        private void OnDrawGizmos()
         {
-            Vector3 velocity = Velocities[index] + Accelerations[index] * DeltaTime;
-            Vector3 direction = velocity.normalized;
-            
-            transform.position += velocity * DeltaTime;
-            transform.rotation = Quaternion.LookRotation(direction);
-
-            Positions[index] = transform.position;
-            Velocities[index] = velocity;
-        }
-    }
-
-    public struct AccelerationJob : IJobParallelFor
-    {
-        // У данного интерфейса есть ограничения на использование Vector
-        // дать доступ на чтение можно атрибутом ReadOnly
-        [ReadOnly] 
-        public NativeArray<Vector3> Positions;
-        [ReadOnly] 
-        public NativeArray<Vector3> Velocities;
-        
-        public NativeArray<Vector3> Accelerations;
-
-        public float DestinationThreshold;
-
-        private int Count => Positions.Length - 1;
-
-        public void Execute(int index)
-        {
-            Vector3 myPosition = Positions[index];                               // позиция текущего обьекта
-            
-            Vector3 averageSpread = Vector3.zero;
-            Vector3 averageVelocity = Vector3.zero;
-            Vector3 averagePosition = Vector3.zero;
-
-            int neighborCount = 0;                                               // кол-во рядом стоящих соседей
-
-            for (int i = 0; i < Count; i++)
-            {
-                if (i == index)                                                  // себя пропустить
-                    continue;
-
-                Vector3 neighbourPosition = Positions[i];                        // позиция соседнего обьекта
-                Vector3 positionsDifference = myPosition - neighbourPosition;    // вектор растояние к соседу
-                
-                if (positionsDifference.magnitude > DestinationThreshold)        // если слишком далеко, пропустить сосед
-                    continue;
-
-                neighborCount++;
-                
-                averageSpread += positionsDifference.normalized;                 // находим среднее направление + растояние до соседей
-                averageVelocity += Velocities[i];                                // находим среднюю вектор направлений + скоростей соседей
-                averagePosition += neighbourPosition;                            // находим среднюю позицию соседей
-            }
-
-            Accelerations[index] = averageSpread / neighborCount +               //    
-                                   averageVelocity / neighborCount +             // балансирует скорость чтобы двигался как все + в томже направлении
-                                   averagePosition / neighborCount - myPosition; // задает в основном скорость и вектор направления к стае
+            Gizmos.DrawWireCube(Vector3.zero, areaSize);
         }
     }
 }

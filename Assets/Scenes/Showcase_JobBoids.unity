@@ -387,7 +387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709046435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -27.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -439,5 +439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEntities: 500
-  destinationThreshold: 100
+  destinationThreshold: 20
   entityPrefab: {fileID: 6971091600402161625, guid: 5bd949c97a8e6fa4eb6614992bb20420, type: 3}
+  areaSize: {x: 25, y: 15, z: 15}
+  velocityLimit: 3
+  weights: {x: 4, y: 1, z: 0.4}
