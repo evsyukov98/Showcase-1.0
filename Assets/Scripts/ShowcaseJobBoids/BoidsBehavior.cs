@@ -1,4 +1,3 @@
-using System;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -9,12 +8,17 @@ namespace ShowcaseJobBoids
 {
     public class BoidsBehavior : MonoBehaviour
     {
-        [SerializeField] private int numberOfEntities;
-        [SerializeField] private float destinationThreshold;
+        [SerializeField] private int numberOfEntities = 100;
         [SerializeField] private GameObject entityPrefab;
-        [SerializeField] private Vector3 areaSize;
-        [SerializeField] private float velocityLimit = 3;
+        [Header("Acceleration Job:")]
+        [SerializeField] private float destinationThreshold = 20;
         [SerializeField] private Vector3 weights;
+        [Header("Bound Job:")]
+        [SerializeField] private Vector3 areaSize;
+        [SerializeField] private float boundsThreshold = 5;
+        [SerializeField] private float boundsMultiplier = 8;
+        [Header("Move Job:")]
+        [SerializeField] private float velocityLimit = 3;
         
 
         private NativeArray<Vector3> _positions;
@@ -43,13 +47,6 @@ namespace ShowcaseJobBoids
         
         private void Update()
         {
-            BoundsJob boundsJob = new BoundsJob()
-            {
-                Positions = _positions,
-                Accelerations = _accelerations,
-                AreaSize = areaSize
-            };
-            
             AccelerationJob accelerationJob = new AccelerationJob()
             {
                 Positions = _positions, 
@@ -59,23 +56,32 @@ namespace ShowcaseJobBoids
                 Weights = weights
             };
             
+            BoundsJob boundsJob = new BoundsJob()
+            {
+                Positions = _positions,
+                Accelerations = _accelerations,
+                AreaSize = areaSize,
+                BoundsThreshold = boundsThreshold,
+                BoundsMultiplier = boundsMultiplier
+            };
+            
             MoveJob moveJob = new MoveJob()
             {
-                Positions = _positions,     // Позиция у всех начальная 0
-                Velocities = _velocities,   // Случайные направления 
+                Positions = _positions,     
+                Velocities = _velocities,   
                 Accelerations = _accelerations,
-                DeltaTime = Time.deltaTime,  // Скорость перемещения к направлению
+                DeltaTime = Time.deltaTime,  
                 VelocityLimit = velocityLimit
             };
 
-            var boundsHandle = boundsJob.
+            var accelerationHandle = accelerationJob.
                 Schedule(numberOfEntities, 128);
             
-            var accelerationHandle = accelerationJob.
-                Schedule(numberOfEntities, 128, boundsHandle);
-            
+            var boundsHandle = boundsJob.
+                Schedule(numberOfEntities, 128, accelerationHandle);
+
             var moveHandel = moveJob.
-                Schedule(_transformsAccess, accelerationHandle); // выполниться после вычисления Acceleration
+                Schedule(_transformsAccess, boundsHandle); 
             
             moveHandel.Complete();
         }

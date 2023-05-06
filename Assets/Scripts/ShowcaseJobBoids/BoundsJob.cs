@@ -11,7 +11,10 @@ namespace ShowcaseJobBoids
         public NativeArray<Vector3> Accelerations;
 
         public Vector3 AreaSize;
-        
+
+        public float BoundsThreshold; // за сколько клеток до границы начнет действовать сила 
+        public float BoundsMultiplier;
+
         public void Execute(int index)
         {
             Vector3 pos = Positions[index];
@@ -33,18 +36,15 @@ namespace ShowcaseJobBoids
         /// <returns></returns>
         private Vector3 Compensate(float delta, Vector3 direction)
         {
-            const float threshold = 5f;     // за сколько клеток до границы начнет действовать сила 
-            const float multiplier = 8f;    
-            
             delta = Mathf.Abs(delta); 
             
-            if(delta > threshold)
+            if(delta > BoundsThreshold)
                 return Vector3.zero;
 
             // чем ближе тем выше меньше дельта тем больше наша сила компенсации
-            float compensationPower = (1 - delta / threshold); 
+            float compensationPower = (1 - delta / BoundsThreshold);
             
-            return direction * compensationPower * multiplier;
+            return direction * compensationPower * BoundsMultiplier;
         }
     }
 }
