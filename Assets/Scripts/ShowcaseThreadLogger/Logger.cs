@@ -8,7 +8,6 @@ namespace ShowcaseThreadLogger
 {
     public class Logger : MonoBehaviour
     {
-        [SerializeField] private Button deleteLoggerFile;
         [SerializeField] private Button openFolder;
         [SerializeField] private TMP_InputField workDirectoryField;
         [SerializeField] private TextMeshProUGUI lastLogText;
@@ -34,18 +33,12 @@ namespace ShowcaseThreadLogger
         private void Start()
         {
             openFolder.onClick.AddListener(OnOpenFolder);
-            deleteLoggerFile.onClick.AddListener(OnDeleteLoggerFile);
             workDirectoryField.text = _workDirectory;
             
             openFolder.interactable = false;
 #if UNITY_EDITOR
             openFolder.interactable = true;
 #endif
-        }
-
-        private void OnDeleteLoggerFile()
-        {
-            Directory.Delete(_workDirectory);
         }
 
         private void OnOpenFolder()

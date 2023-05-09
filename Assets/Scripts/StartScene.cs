@@ -14,6 +14,6 @@ public class StartScene : MonoBehaviour
 
     private void Start()
     {
-        _loadingManager.Load(ConstantStatics.ConstantScenes.SAVE_SYSTEM);
+        _loadingManager.Load(ConstantStatics.ConstantScenes.THREAD_LOGGER);
     }
 }
