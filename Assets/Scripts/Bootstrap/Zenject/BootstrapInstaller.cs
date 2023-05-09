@@ -10,7 +10,7 @@ namespace Bootstrap.Zenject
     {
         [SerializeField] private ConfigsManager configsManagerPrefab;
         [SerializeField] private LoadingManager loadingManagerPrefab;
-        
+
         public override void InstallBindings()
         {
             BindStateProvider();
@@ -27,7 +27,7 @@ namespace Bootstrap.Zenject
                 AsSingle();                         // Синглтон
         } 
         
-        // Конфиги
+        /*
         private void BindConfigsManager()
         {
             // создать префаб 
@@ -37,16 +37,23 @@ namespace Bootstrap.Zenject
                 Bind<ConfigsManager>().             // Всем кто затребует ConfigsManager
                 FromInstance(configsManager).       // Дать экземпляр из префаба configsManager      
                 AsSingle();                         // Синглтон
+        }*/
+        
+        // Конфиги
+        private void BindConfigsManager()
+        {
+            Container.
+                Bind<ConfigsManager>().                         // Всем кто затребует ConfigsManager
+                FromComponentInNewPrefab(configsManagerPrefab). // Создать экземпляр из префаба configsManagerPrefab
+                AsSingle();                                     // Синглтон
         }
 
         // Загрузка
         private void BindLoadingManager()
         {
-            LoadingManager loadingManager = Container.InstantiatePrefabForComponent<LoadingManager>(loadingManagerPrefab);
-
             Container.
                 Bind<LoadingManager>().
-                FromInstance(loadingManager).
+                FromComponentInNewPrefab(loadingManagerPrefab).
                 AsSingle();
         }
     }

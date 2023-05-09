@@ -12,7 +12,7 @@ public class StartScene : MonoBehaviour
         _loadingManager = loadingManager;
     }
 
-    private void Awake()
+    private void Start()
     {
         _loadingManager.Load(ConstantStatics.ConstantScenes.SAVE_SYSTEM);
     }
