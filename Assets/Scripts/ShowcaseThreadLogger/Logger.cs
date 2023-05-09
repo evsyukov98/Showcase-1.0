@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,22 +8,13 @@ namespace ShowcaseThreadLogger
 {
     public class Logger : MonoBehaviour
     {
+        [SerializeField] private Button deleteLoggerFile;
         [SerializeField] private Button openFolder;
+        [SerializeField] private TMP_InputField workDirectoryField;
+        [SerializeField] private TextMeshProUGUI lastLogText;
         
         private string _workDirectory;
         private FileWriter _fileWriter;
-
-        private void Start()
-        {
-            openFolder.onClick.AddListener(OnOpenFolder);
-        }
-
-        private void OnOpenFolder()
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.RevealInFinder(_workDirectory);
-#endif
-        }
 
         private void Awake()
         {
@@ -39,8 +31,34 @@ namespace ShowcaseThreadLogger
             Application.logMessageReceivedThreaded += OnLogMessageReceived; 
         }
 
+        private void Start()
+        {
+            openFolder.onClick.AddListener(OnOpenFolder);
+            deleteLoggerFile.onClick.AddListener(OnDeleteLoggerFile);
+            workDirectoryField.text = _workDirectory;
+            
+            openFolder.interactable = false;
+#if UNITY_EDITOR
+            openFolder.interactable = true;
+#endif
+        }
+
+        private void OnDeleteLoggerFile()
+        {
+            Directory.Delete(_workDirectory);
+        }
+
+        private void OnOpenFolder()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.RevealInFinder(_workDirectory);
+#endif
+        }
+
         private void OnLogMessageReceived(string message, string stacktrace, LogType type)
         {
+            lastLogText.text = message;
+            
             if (type == LogType.Exception)
             {
                 _fileWriter.Write(new LogMessage(type, message));

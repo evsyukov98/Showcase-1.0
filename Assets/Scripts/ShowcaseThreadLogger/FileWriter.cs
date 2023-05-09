@@ -62,7 +62,7 @@ namespace ShowcaseThreadLogger
                 }
                 _mre.Set();                         // игнор WaitOne (т.е. разблокировка потока)
             }
-            catch (Exception e)
+            catch (Exception)
             { }
         }
 
@@ -93,7 +93,7 @@ namespace ShowcaseThreadLogger
                         else
                             Thread.Sleep(5);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         break;
                     }
