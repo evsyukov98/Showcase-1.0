@@ -152,7 +152,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &198093254
 GameObject:
@@ -214,7 +214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676085316
 GameObject:
@@ -439,8 +439,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEntities: 500
-  destinationThreshold: 20
   entityPrefab: {fileID: 6971091600402161625, guid: 5bd949c97a8e6fa4eb6614992bb20420, type: 3}
-  areaSize: {x: 25, y: 15, z: 15}
-  velocityLimit: 3
+  destinationThreshold: 20
   weights: {x: 4, y: 1, z: 0.4}
+  areaSize: {x: 25, y: 15, z: 15}
+  boundsThreshold: 5
+  boundsMultiplier: 8
+  velocityLimit: 3

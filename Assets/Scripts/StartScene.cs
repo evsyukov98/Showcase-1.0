@@ -12,8 +12,13 @@ public class StartScene : MonoBehaviour
         _loadingManager = loadingManager;
     }
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 90;
+    }
+
     private void Start()
     {
-        _loadingManager.Load(ConstantStatics.ConstantScenes.THREAD_LOGGER);
+        _loadingManager.Load(ConstantStatics.ConstantScenes.JOBS_BOIDS);
     }
 }

@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Showcases/Showcase_JobSystem.unity
     guid: f5e471f85ad443645a6dc3fc35f1ee04
+  - enabled: 1
+    path: Assets/Scenes/Showcases/Showcase_PluginsIntergation.unity
+    guid: 7dfda15d175a34841905ab6c2097ad77
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: fb4ff505be1364a418d62e3e55f83934, type: 2}

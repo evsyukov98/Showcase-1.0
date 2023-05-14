@@ -7,5 +7,7 @@ namespace ConstantStatics
         public const string ADDRESSABLE = "Showcase_Addressable";
         public const string THREAD_LOGGER = "Showсase_ThreadLogger";
         public const string SAVE_SYSTEM = "Showcase_SaveSystem";
+        public const string PLUGINS = "Showcase_PluginsIntergation";
+        public const string JOBS_BOIDS = "Showcase_JobBoids";
     }
 }
