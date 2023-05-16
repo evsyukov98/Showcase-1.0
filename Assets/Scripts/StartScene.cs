@@ -19,6 +19,6 @@ public class StartScene : MonoBehaviour
 
     private void Start()
     {
-        _loadingManager.Load(ConstantStatics.ConstantScenes.JOBS_BOIDS);
+        _loadingManager.Load(ConstantStatics.ConstantScenes.PLUGINS);
     }
 }

@@ -1,10 +1,11 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ShowcasePlugins
 {
-    public class VibrationPluginJar : MonoBehaviour
+    public class VibrationPluginJAR : MonoBehaviour
     {
         [SerializeField] private Button vibrateButton;
         [SerializeField] private TMP_InputField duration;
@@ -13,35 +14,37 @@ namespace ShowcasePlugins
         private long _durationMilliseconds = 1000;
         private int _strengthAmplitude = 100;
 
-        private AndroidJavaClass _vibrationHelper; // мой плагин
-        private AndroidJavaObject _context;        // обьект текущего activity для того чтобы взять доступ в нашем случае к вибрации
+        private AndroidJavaClass _myPlugin; 
+        private AndroidJavaObject _currentActivity;        // обьект текущего activity для того чтобы взять доступ в нашем случае к вибрации
 
-        private void Start()
+        private void Awake()
         {
             if (Application.platform == RuntimePlatform.Android)
             {
-                Handheld.Vibrate();                 // чтоб взять автоматически разрешение (на некоторых устройствах не получается получить доступ к вибрации даже через AndroidManifest)
-
-                _vibrationHelper = new AndroidJavaClass("com.showcase.vibrationplugin.VibrationHelper");
                 AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"); // нативный плагин unity для управление циклом жизни в Andorid
-                _context = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                _currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
                 unityPlayer.Dispose();
-                
-                vibrateButton.onClick.AddListener(OnVibrateButton);
+            
+                _myPlugin = new AndroidJavaClass("com.showcase.vibrationplugin.VibrationHelper");
             }
+        }
+
+        private void Start()
+        {
+            vibrateButton.onClick.AddListener(OnVibrateButton);
         }
 
         private void OnVibrateButton()
         {
+            Debug.Log("MY LOG: JAR PLUGIN BUTTON");
+
             _durationMilliseconds = long.TryParse(duration.text, out var resultDuration) ? resultDuration : _durationMilliseconds;
             if (int.TryParse(strength.text, out var resultStrength))
             {
-                if (resultStrength is < 0 or > 255)
-                {
+                if (resultStrength is > 0 and < 255)
                     _strengthAmplitude = resultStrength;
-                }
-                
-                _strengthAmplitude = 255;
+                else
+                    _strengthAmplitude = 255;
             }
 
             Vibrate(_durationMilliseconds, _strengthAmplitude);
@@ -51,7 +54,7 @@ namespace ShowcasePlugins
         {
             if (Application.platform == RuntimePlatform.Android)
             {
-                _vibrationHelper.CallStatic("vibrate", milliseconds, _context, amplitude);
+                _myPlugin.CallStatic("vibrate", milliseconds, _currentActivity, amplitude);
             }
             else
             {
@@ -64,8 +67,8 @@ namespace ShowcasePlugins
         {
             if (Application.platform == RuntimePlatform.Android)
             {
-                _vibrationHelper?.Dispose();
-                _context?.Dispose();
+                _myPlugin?.Dispose();
+                _currentActivity?.Dispose();
             }
             
             vibrateButton.onClick.RemoveAllListeners();
