@@ -3,7 +3,7 @@ using UI.Common;
 using UnityEngine;
 using Zenject;
 
-namespace DobroGames.UI.Loading
+namespace UI.LoadingWindow
 {
     public class LoadingWindow : WindowController
     {

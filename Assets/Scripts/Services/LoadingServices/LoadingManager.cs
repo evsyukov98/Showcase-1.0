@@ -74,7 +74,7 @@ namespace Services.LoadingServices
         {
             _loadSceneName = sceneName;
             
-            SceneManager.LoadScene(ConstantStatics.ConstantScenes.LOAD);
+            SceneManager.LoadScene(ConstantStatics.CommonScenesNames.LOAD);
             StartCoroutine(LoadSceneAsyncRoutine());
         }
         

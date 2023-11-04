@@ -1,3 +1,4 @@
+using ShowcaseProjects.ShowcaseJobBoids;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace ShowcaseJobBoids
     public class BoidsBehavior : MonoBehaviour
     {
         [SerializeField] private int numberOfEntities = 100;
-        [SerializeField] private GameObject entityPrefab;
+        [SerializeField] private BoidsEntityObject entityPrefab;
         [Header("Acceleration Job:")]
         [SerializeField] private float destinationThreshold = 20;
         [SerializeField] private Vector3 weights;
