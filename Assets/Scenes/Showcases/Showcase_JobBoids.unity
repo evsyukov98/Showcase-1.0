@@ -438,11 +438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7529c569f5f6298408de7fe4076169ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfEntities: 250
+  numberOfEntities: 150
   entityPrefab: {fileID: 7773261386524603302, guid: 5bd949c97a8e6fa4eb6614992bb20420, type: 3}
   destinationThreshold: 20
   weights: {x: 4, y: 1, z: 0.4}
   areaSize: {x: 20, y: 15, z: 15}
   boundsThreshold: 5
   boundsMultiplier: 8
-  velocityLimit: 3
+  velocityLimit: 6
